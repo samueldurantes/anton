@@ -12,6 +12,7 @@ type hterm =
 let rec term_to_string t =
   match t with
   | Var { name } -> name
-  | Lam { param; body } -> "λ" ^ param ^ ". " ^ term_to_string body
+  | Lam { param; body } -> "λ" ^ param ^ "." ^ term_to_string body
   | App { func; arg } -> "(" ^ term_to_string func ^ " " ^ term_to_string arg ^ ")"
-  | _ -> failwith "impossible!"
+  | Let { name; body; expr } ->
+    "let " ^ name ^ " = " ^ term_to_string body ^ " in " ^ term_to_string expr

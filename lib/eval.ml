@@ -5,8 +5,8 @@ type context = (string * hterm) list
 let rec lookup k ctx =
   match ctx with
   | [] -> Option.none
-  | (x :: xs) -> if k == (fst x) 
-    then Option.some (snd x) 
+  | (x :: xs) -> if k == (fst x)
+    then Option.some (snd x)
     else lookup k xs
 
 let find_variable name ctx =
@@ -15,8 +15,8 @@ let find_variable name ctx =
   | Some v -> v
 
 let app func arg =
-  match func with 
-  | HLam { f } -> f arg 
+  match func with
+  | HLam { f } -> f arg
   | _ -> HApp { func; arg }
 
 let rec eval term (ctx : context) =

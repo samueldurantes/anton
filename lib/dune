@@ -1,2 +1,6 @@
 (library
  (name anton))
+
+(menhir (modules parser))
+
+(ocamllex lexer)

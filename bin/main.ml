@@ -1,49 +1,11 @@
-open Anton.Tree
-open Anton.Eval
+open Anton.Cli
 
-let two =
-  Lam {
-    param = "f";
-    body = Lam {
-      param = "x";
-      body = App {
-        func = Var { name = "f" };
-        arg = App {
-          func = Var { name = "f" };
-          arg = Var { name = "x" }
-        }
-      }
-    }
-  }
+let file = "
+  let exp = m => n => (n m) in
+  let two = f => x => f (f x) in
 
-let exp =
-  Lam {
-   param = "m";
-   body = Lam {
-      param = "n";
-      body = App {
-        func = Var { name = "n" };
-        arg = Var { name = "m" }
-      }
-    }
-  }
+  (exp two two)
+"
 
-let four = 
-  App {
-    func = exp;
-    arg = App {
-      func = two;
-      arg = two;
-    }
-  }
-
-let app = 
-  App {
-    func = exp;
-    arg = App {
-      func = four;
-      arg = two;
-    }
-  }
-
-let () = print_endline (term_to_string (quote (eval app [])))
+let () =
+  print_endline (run_cli file)
